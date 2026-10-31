@@ -23,3 +23,22 @@ export const createStudent = async (req, res) =>{
         });
     }
 }
+
+export const editStudent = async (req, res) =>{
+    const {name, srCode, program} = req.body;
+    const { id } = req.params;
+    const student = {id: parseInt(id), name, srCode, program};
+
+    try{
+        const updatedStudent = await studentService.updateStudent(student);
+        res.status(200).json({
+            success: true,
+            message: updatedStudent
+        });
+    }catch(e){
+        console.log(e);
+        res.status(500).json({
+            error: "Internal Server Error"
+        });
+    }
+}
