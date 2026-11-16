@@ -55,6 +55,14 @@ export const updateBook = async (book) => {
 
 // Delete
 export const deleteBook = async(id) =>{
+    const book = {id};
+
+    const existing = await doesBookExist(book) ;
+
+    if(!existing) {
+	    throw new Error('Book does not exist!');
+    }
+    
     const deletedBook = await bookModel.remove(id);
     return deletedBook;
 }
